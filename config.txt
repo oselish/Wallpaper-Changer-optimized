@@ -1,0 +1,8 @@
+# English only!!!
+# All images must be in one folder
+# images sorted by time of show
+
+EverlastingSummer(1).png
+EverlastingSummer(2).png
+EverlastingSummer(1).png
+EverlastingSummer(5).png
