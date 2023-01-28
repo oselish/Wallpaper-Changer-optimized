@@ -50,6 +50,7 @@ std::string GetCurrentPath(char* argv)
     return path;
 }
 
+
 //Получение текущих даты и времени
 void getCurrentDateTime()
 {
@@ -75,6 +76,7 @@ void getCurrentDateTime()
     currentTime = hourStr + ":" + minuteStr + ":" + secondStr; // текущее время
 }
 
+
 //Проверка на наличие файла
 bool fileExists(std::string filePath)
 {
@@ -83,6 +85,7 @@ bool fileExists(std::string filePath)
     check.close();
     return result;
 }
+
 
 //Проверка файла и создание логов
 void checkFiles(std::string currentPath)
@@ -153,6 +156,7 @@ void checkFiles(std::string currentPath)
     }
 }
 
+
 //Чтение конфига
 void readConfig(std::string currentPath)
 {
@@ -175,6 +179,7 @@ void readConfig(std::string currentPath)
     config.close();
 }
 
+
 //Установка обоев
 void setWP(std::string wallpaperPath)
 {
@@ -195,45 +200,10 @@ void setWP(std::string wallpaperPath)
     system(command.c_str());
 }
 
-//добавление программы в автозапуск
-void addToAutoStart(std::string currentPath, char *argv)
-{
-    thisExe = argv;
-    std::cout << thisExe << std::endl;
-    //std::string autoStartPath = std::string(getenv("USERPROFILE")) + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\"; //путь к папке автозапуска программ
-    std::string autoStartPath = std::string(getenv("APPDATA")) + "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\"; //путь к папке автозапуска программ
-    
-    std::string disk = autoStartPath.substr(0, 2);
-    std::string lnkName = "Wallpaper Changer.lnk"; //имя ярлыка
-    
-    std::cout << autoStartPath << std::endl;
-    
-
-    /*
-    system(("mklink /h \"" + currentPath + lnkName + "\" \"" + thisExe + "\"").c_str());
-    if (MoveFile((LPCWSTR)(currentPath + lnkName).c_str(), (LPCWSTR)(autoStartPath + lnkName).c_str()))
-    {
-        std::cout << "OK" << std::endl;
-    }
-    //system(("mklink /h \"" + autoStartPath + lnkName + "\" \"" + thisExe + "\"").c_str());
-    */
-
-    std::string lnkPath = autoStartPath + lnkName;
-    std::wstring lnkPathWstr = std::wstring(lnkPath.begin(), lnkPath.end());
-    LPCWSTR LNKPATH = lnkPathWstr.c_str();
-
-    //создается неправильный ярлык (.symlink)
-    std::wstring thisExeWstr = std::wstring(thisExe.begin(), thisExe.end());
-    LPCWSTR THISEXE = thisExeWstr.c_str();
-
-    CreateSymbolicLinkW(LNKPATH, THISEXE, 0);
-        
-}
-
 
 int main(int argc, char* argv[])
 {
-    //ShowWindow(GetConsoleWindow(), SW_HIDE); //окно консоли не открывается
+    ShowWindow(GetConsoleWindow(), SW_HIDE); //окно консоли не открывается
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     currentPath = GetCurrentPath(argv[0]);
